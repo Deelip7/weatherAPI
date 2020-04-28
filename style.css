@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 1.5rem;
+  background-color: #9a9999;
+}
+
+.container {
+  width: 80%;
+  height: auto;
+  padding: 2rem;
+  margin: 5rem auto;
+  text-align: center;
+  background-color: #ffff;
+}
+
+.weather-form__input {
+  padding: 0.7rem;
+  width: 70%;
+}
+
+.weather-form__button {
+  padding: 0.5em;
+  font-size: 1rem;
+}
