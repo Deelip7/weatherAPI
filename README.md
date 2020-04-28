@@ -1,1 +1,1 @@
-# Weather Project using OpenWeatherMap API
+# OpenWeatherMap API
