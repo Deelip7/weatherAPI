@@ -17,11 +17,25 @@ fetch(
 )
   .then((res) => res.json())
   .then((data) => {
+    var locationName = data["name"];
+    // var tempCel = Math.round(data.main["temp"] - 273.15);
+    // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
+    var tempCel = data.main["temp"];
+    var tempFah = data.main["temp"];
+    var description = data.weather[0]["main"];
+    var description2 = data.weather[0]["description"];
+    var feelsLike = data.main["feels_like"];
+    var humidity = data.main["humidity"] + "%";
+    var wind = data.wind["speed"] + "mph";
 
-    var 
-
-
-
-
-
+    console.log(
+      locationName,
+      tempCel,
+      tempFah,
+      description,
+      description2,
+      feelsLike,
+      humidity,
+      wind
+    );
   });
