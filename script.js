@@ -12,42 +12,46 @@ var wind = document.querySelector(".output__wind");
 var icon = document.querySelector(".card__icon");
 var dateTime = document.querySelector(".card__date");
 
-fetch(
-  "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" +
-    "middletown" +
-    "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
-)
-  .then((res) => res.json())
-  .then((data) => {
-    var location = data["name"];
-    var tempCel = Math.round(data.main["temp"] - 273.15);
-    // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
-    var description1 = data.weather[0]["main"];
-    var description2 = data.weather[0]["description"];
-    var feels_Like = Math.round(data.main["feels_like"] - 273.15);
-    var humid = data.main["humidity"] + "%";
-    var windspeed = data.wind["speed"] + " mph";
-    var iconCode = data.weather[0].icon;
-    var time = data["timezone"];
-    var mytime = Math.floor(new Date().getTime() / 1000.0) + time;
+button.addEventListener("click", function (name) {
+  fetch(
+    "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" +
+      input.value +
+      "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      var location = data["name"];
+      var tempCel = Math.round(data.main["temp"] - 273.15);
+      // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
+      var description1 = data.weather[0]["main"];
+      var description2 = data.weather[0]["description"];
+      var feels_Like = Math.round(data.main["feels_like"] - 273.15);
+      var humid = data.main["humidity"] + "%";
+      var windspeed = data.wind["speed"] + " mph";
+      var iconCode = data.weather[0].icon;
+      var time = data["timezone"];
+      var mytime = Math.floor(new Date().getTime() / 1000.0) + time;
 
-    var mydate = new Date(mytime * 1000);
-    var date = mydate.toGMTString();
+      var mydate = new Date(mytime * 1000);
+      var date = mydate.toGMTString();
 
-    console.log(date);
+      console.log(date);
 
-    var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+      var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + ".png";
 
-    temp.innerHTML = tempCel + "°C";
-    locationName.innerHTML = location;
-    descriptions.innerHTML = description1;
-    humidity.innerHTML = "<strong>Humidity  </strong>- " + humid;
-    wind.innerHTML = "<strong>Wind </strong>- " + windspeed;
-    feelsLike.innerHTML = "<strong>Feels Like </strong>- " + feels_Like + "°C";
-    dateTime.innerHTML = date;
+      temp.innerHTML = tempCel + "°C";
+      locationName.innerHTML = location;
+      descriptions.innerHTML = description1;
+      humidity.innerHTML = "<strong>Humidity  </strong>- " + humid;
+      wind.innerHTML = "<strong>Wind </strong>- " + windspeed;
+      feelsLike.innerHTML =
+        "<strong>Feels Like </strong>- " + feels_Like + "°C";
+      dateTime.innerHTML = date;
 
-    // icon.innerHTML = "<img src='" + iconUrl + "'>";
-  });
+      // icon.innerHTML = "<img src='" + iconUrl + "'>";
+    })
+    .catch((err) => alert("Invalid City name. Please try again"));
+});
 
 function weatherIcon(code) {
   switch (code) {
