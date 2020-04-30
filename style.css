@@ -101,7 +101,11 @@ body {
 .card__map img {
   padding-right: 0.7rem;
 }
-
+.card__icon img {
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
 /* ------------- output ------------- */
 
 .output {
