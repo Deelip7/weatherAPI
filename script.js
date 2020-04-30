@@ -36,7 +36,7 @@ button.addEventListener("click", function (name) {
       var mydate = new Date(mytime * 1000);
       var date = mydate.toGMTString();
 
-      console.log(date);
+      weatherIcon(iconCode);
 
       var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + ".png";
 
@@ -49,7 +49,7 @@ button.addEventListener("click", function (name) {
         "<strong>Feels Like </strong>- " + feels_Like + "°C";
       dateTime.innerHTML = date;
       enterMsg.innerHTML = " ";
-      input.value = "";
+      // input.value = "";
 
       // icon.innerHTML = "<img src='" + iconUrl + "'>";
     })
