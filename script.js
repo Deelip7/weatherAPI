@@ -11,6 +11,7 @@ var temp = document.querySelector(".card__temp");
 var wind = document.querySelector(".output__wind");
 var icon = document.querySelector(".card__icon");
 var dateTime = document.querySelector(".card__date");
+var enterMsg = document.querySelector(".card__enter");
 
 button.addEventListener("click", function (name) {
   fetch(
@@ -47,6 +48,8 @@ button.addEventListener("click", function (name) {
       feelsLike.innerHTML =
         "<strong>Feels Like </strong>- " + feels_Like + "°C";
       dateTime.innerHTML = date;
+      enterMsg.innerHTML = " ";
+      input.value = "";
 
       // icon.innerHTML = "<img src='" + iconUrl + "'>";
     })

@@ -4,6 +4,7 @@
 
 :root {
   --gradient: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+  --gradient2: linear-gradient(-100deg, #72eef2b5 5%, #5151e5 100%);
 }
 
 *,
@@ -34,13 +35,23 @@ body {
 }
 
 .form__input {
-  padding: 0.7rem;
   width: 70%;
+  padding: 0.8rem;
+  border: 1px rgba(168, 168, 168, 0.264) solid;
+  margin-bottom: 1.5rem;
+  box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.264);
+  outline: none;
 }
 
 .form__button {
-  padding: 0.5em;
+  padding-top: 0.7em;
+  width: 20%;
+  border: 0px;
   font-size: 1rem;
+  background-color: inherit;
+  color: #ffffff;
+  vertical-align: top;
+  background-image: var(--gradient2);
 }
 
 /* ------------- Card ------------- */
