@@ -13,8 +13,8 @@ var icon = document.querySelector(".card__icon");
 var dateTime = document.querySelector(".card__date");
 
 fetch(
-  "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?zip=" +
-    "11801" +
+  "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=" +
+    "middletown" +
     "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
 )
   .then((res) => res.json())
