@@ -12,7 +12,7 @@ var wind = document.querySelector(".output__wind");
 var icon = document.querySelector(".card__icon");
 
 fetch(
-  "https://api.openweathermap.org/data/2.5/weather?zip=" +
+  "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?zip=" +
     "11801" +
     "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
 )
@@ -27,13 +27,14 @@ fetch(
     var humid = data.main["humidity"] + "%";
     var windspeed = data.wind["speed"] + " mph";
     var iconCode = data.weather[0].icon;
+    console.log(iconCode);
     var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + ".png";
 
     temp.innerHTML = tempCel + "°C";
     locationName.innerHTML = location;
     descriptions.innerHTML = description1;
-    humidity.innerHTML = "Humidity " + humid;
-    wind.innerHTML = "Wind " + windspeed;
-    feelsLike.innerHTML = "Feels Like " + feels_Like + "°C";
+    humidity.innerHTML = "<strong>Humidity  </strong>- " + humid;
+    wind.innerHTML = "<strong>Wind </strong>- " + windspeed;
+    feelsLike.innerHTML = "<strong>Feels Like </strong>- " + feels_Like + "°C";
     icon.innerHTML = "<img src='" + iconUrl + "'>";
   });
