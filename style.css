@@ -14,12 +14,13 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  outline: none;
 }
 body {
   font-size: 1.5rem;
   font-family: "PT Sans", sans-serif;
   background-color: #343d4b;
-  color: rgb(31, 31, 31);
+  color: #ffffff;
   -moz-osx-font-smoothing: grayscale; /*(For Firefox)*/
   -webkit-font-smoothing: antialiased; /*(For Chrome and Safari)*/
 }
@@ -42,7 +43,6 @@ body {
   /* background-image: url(img/02d.svg); */
   background-color: rgb(61, 61, 61);
   background-size: cover;
-  color: #eee;
   font-size: 2rem;
   border-radius: 20px;
   position: relative;
@@ -82,6 +82,7 @@ body {
 .card__date {
   font-size: 1.5rem;
   padding-bottom: 1rem;
+  font-weight: bold;
 }
 .card__map {
   display: flex;
@@ -89,24 +90,22 @@ body {
   font-size: 1.5rem;
   padding-bottom: 5rem;
   justify-content: center;
-  z-index: 1;
+  align-items: baseline;
 }
 
 .card__map img {
-  padding-right: 0.7rem;
+  margin-right: 1rem;
 }
-.card__icon img {
+/* .card__icon img {
   width: 100px;
   height: 100px;
-  z-index: 2;
-}
+} */
 /* ------------- forcast ------------- */
 .forcast {
-  display: flex;
+  display: none;
   flex-direction: row;
   background-color: #222831;
-  color: #ffffff;
-  padding: 4rem 1rem 0rem 1rem;
+  padding: 4.5rem 1rem 0rem 1rem;
   border-radius: 20px;
   top: -40px;
   position: relative;
@@ -115,16 +114,16 @@ body {
   justify-content: space-between;
   flex-wrap: wrap;
   box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.264);
-  /* display: none; */
 }
 
 .forcast div {
   padding-bottom: 1rem;
 }
+
 .forcast__lable {
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .forcast__value {
@@ -132,10 +131,13 @@ body {
   display: flex;
   flex-direction: column;
   text-align: end;
+  font-weight: 100;
 }
+
 .forcast__3days {
   width: 100%;
 }
+
 .forcast__day {
   display: flex;
   margin-bottom: 1rem;
@@ -155,39 +157,35 @@ body {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.forcast__day img {
+/* .forcast__day img {
   width: 70px;
-}
+} */
 
 /* ------------- input ------------- */
 .forcast__form {
   display: flex;
-  position: relative;
-  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .form__input {
   width: 350px;
-  padding: 0.8rem;
+  padding: 11.9px;
   border: 1px rgba(168, 168, 168, 0.264) solid;
-  margin-bottom: 1.5rem;
   box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.264);
   outline: none;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .form__button {
+  color: inherit;
   position: absolute;
-  padding: 0.7em;
-  top: 1px;
-  right: 0;
+  padding: 11px;
+  right: 32px;
   width: 100px;
   border: 0px;
-  border-radius: 20px;
+  border-radius: 15px;
   font-size: 1rem;
-  background-color: inherit;
   box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.264);
-  color: #ffffff;
   background-image: var(--gradient2);
   cursor: pointer;
 }

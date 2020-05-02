@@ -10,11 +10,19 @@
     <div class="container">
       <div class="card">
         <div class="card__container">
+          <div class="forcast__form">
+            <input
+              type="text"
+              placeholder="e.g. New York "
+              class="form__input"
+            />
+            <input type="submit" value="Send" class="form__button" />
+          </div>
           <div class="card__gradient"></div>
           <div class="card__date"></div>
           <div class="card__map">
             <img src="img/map-pin.svg" />
-            <div class="card__enter">Enter City Name below</div>
+            <div class="card__enter">Enter ZIP Code Above</div>
             <div class="card__location"></div>
           </div>
           <div class="card__icon"></div>
@@ -29,31 +37,27 @@
           <div>Humidity</div>
           <div>Wind</div>
         </div>
-        <div class="forcast__value" id="hide">
+        <div class="forcast__value">
           <div class="output__feelslike"></div>
           <div class="output__humidity"></div>
           <div class="output__wind"></div>
         </div>
-        <div class="forcast__3days" id="hide">
+        <div class="forcast__3days">
           <div class="forcast__day">
             <div class="day1_date"></div>
             <div class="day1_icon"></div>
             <div class="day1_temp"></div>
           </div>
-          <div class="forcast__day" id="hide">
+          <div class="forcast__day">
             <div class="day2_date"></div>
             <div class="day2_icon"></div>
             <div class="day2_temp"></div>
           </div>
-          <div class="forcast__day" id="hide">
+          <div class="forcast__day">
             <div class="day3_date"></div>
             <div class="day3_icon"></div>
             <div class="day3_temp"></div>
           </div>
-        </div>
-        <div class="forcast__form">
-          <input type="text" placeholder="e.g. New York " class="form__input" />
-          <input type="submit" value="Send" class="form__button" />
         </div>
       </div>
     </div>

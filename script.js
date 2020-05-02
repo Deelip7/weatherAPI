@@ -51,12 +51,13 @@ button.addEventListener("click", function (name) {
       var mydate = new Date(mytime * 1000);
       var date = mydate.toGMTString();
 
+      console.log(iconCode);
+
       weatherIcon(iconCode);
       var str = date;
       var stringArray = str.split(/\b\s+/);
 
       enterMsg.innerHTML = " ";
-      input.value = "30060";
       temp.innerHTML = tempCel + "°C";
       locationName.innerHTML = location;
       descriptions.innerHTML = description1;
@@ -143,7 +144,7 @@ function weatherIcon(code) {
       break;
     case "02d":
     case "02n":
-      icon.innerHTML = "<img src='img/02d.png'>";
+      icon.innerHTML = "<img src='img/02d.svg'>";
       break;
     case "03d":
     case "03n":
