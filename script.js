@@ -23,15 +23,20 @@ var dayTwoTemp = document.querySelector(".day2_temp");
 var dayThreeDate = document.querySelector(".day3_date");
 var dayThreeIcon = document.querySelector(".day3_icon");
 var dayThreeTemp = document.querySelector(".day3_temp");
+var forcastContainer = document.getElementById("hide2");
+
+input.value = "30060";
 
 button.addEventListener("click", function (name) {
   fetch(
     "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?zip=" +
-      "06457" +
+      input.value +
       "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
   )
     .then((res) => res.json())
     .then((data) => {
+      forcastContainer.style.display = "flex";
+
       var location = data["city"]["name"];
       var tempCel = Math.round(data.list[0]["main"]["temp"] - 273.15);
       // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
@@ -47,33 +52,39 @@ button.addEventListener("click", function (name) {
       var date = mydate.toGMTString();
 
       weatherIcon(iconCode);
+      var str = date;
+      var stringArray = str.split(/\b\s+/);
 
       enterMsg.innerHTML = " ";
-      input.value = "middletown";
+      input.value = "30060";
       temp.innerHTML = tempCel + "°C";
       locationName.innerHTML = location;
       descriptions.innerHTML = description1;
       feelsLike.innerHTML = feels_Like + "°C";
       humidity.innerHTML = humid;
       wind.innerHTML = windspeed;
-      dateTime.innerHTML = date;
+      dateTime.innerHTML = stringArray[0] + " " + stringArray[1];
 
       //3 days forcast
-      dayOneDate.innerHTML = "asd";
-      dayTwoDate.innerHTML = "asd";
-      dayThreeDate.innerHTML = "asd";
-      // <img src="https://openweathermap.org/img/wn/10d.png" />
 
-      var d1I = data.list[4]["weather"][0].icon;
-      var d1 = "http://openweathermap.org/img/wn/" + d1I + "@2x.png";
+      weatherDate(stringArray);
+
+      var d1 =
+        "http://openweathermap.org/img/wn/" +
+        data.list[4]["weather"][0].icon +
+        "@2x.png";
       dayOneIcon.innerHTML = "<img src=" + d1 + ">";
 
-      var d2I = data.list[12]["weather"][0].icon;
-      var d2 = "http://openweathermap.org/img/wn/" + d2I + "@2x.png";
+      var d2 =
+        "http://openweathermap.org/img/wn/" +
+        data.list[12]["weather"][0].icon +
+        "@2x.png";
       dayTwoIcon.innerHTML = "<img src=" + d2 + ">";
 
-      var d3I = data.list[12]["weather"][0].icon;
-      var d3 = "http://openweathermap.org/img/wn/" + d3I + "@2x.png";
+      var d3 =
+        "http://openweathermap.org/img/wn/" +
+        data.list[12]["weather"][0].icon +
+        "@2x.png";
       dayThreeIcon.innerHTML = "<img src=" + d3 + ">";
 
       var day1temp = Math.round(data.list[4]["main"]["temp"] - 273.15) + "°C";
@@ -83,9 +94,44 @@ button.addEventListener("click", function (name) {
       dayOneTemp.innerHTML = day1temp;
       dayTwoTemp.innerHTML = day2temp;
       dayThreeTemp.innerHTML = day3temp;
-    });
-  // .catch((err) => alert("Invalid City name. Please try again"));
+    })
+    .catch((err) => alert("Invalid City name. Please try again"));
 });
+
+function weatherDate(date) {
+  var str = date[0];
+  var stringArray = str.split(",");
+
+  if (stringArray[0] === "Fri") {
+    dayOneDate.innerHTML = "Saturday";
+    dayTwoDate.innerHTML = "Sunday";
+    dayThreeDate.innerHTML = "Monday";
+  } else if (stringArray[0] === "Sat") {
+    dayOneDate.innerHTML = "Sunday";
+    dayTwoDate.innerHTML = "Monday";
+    dayThreeDate.innerHTML = "Tuesday";
+  } else if (stringArray[0] === "Sun") {
+    dayOneDate.innerHTML = "Monday";
+    dayTwoDate.innerHTML = "Tuesday";
+    dayThreeDate.innerHTML = "Wednesday";
+  } else if (stringArray[0] === "Mon") {
+    dayOneDate.innerHTML = "Tuesday";
+    dayTwoDate.innerHTML = "Wednesday";
+    dayThreeDate.innerHTML = "Thursday";
+  } else if (stringArray[0] === "Tue") {
+    dayOneDate.innerHTML = "Wednesday";
+    dayTwoDate.innerHTML = "Thursday";
+    dayThreeDate.innerHTML = "Friday";
+  } else if (stringArray[0] === "Wed") {
+    dayOneDate.innerHTML = "Thursday";
+    dayTwoDate.innerHTML = "Friday";
+    dayThreeDate.innerHTML = "Saturday";
+  } else if (stringArray[0] === "Thurs") {
+    dayOneDate.innerHTML = "Friday";
+    dayTwoDate.innerHTML = "Saturday";
+    dayThreeDate.innerHTML = "Sunday";
+  }
+}
 
 function weatherIcon(code) {
   switch (code) {
