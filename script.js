@@ -26,6 +26,10 @@ var dayThreeTemp = document.querySelector(".day3_temp");
 var forcastContainer = document.getElementById("hide2");
 var container = document.querySelector(".container");
 
+var btnCel = document.querySelector(".cel");
+var btnFar = document.querySelector(".far");
+var temp_K = 0;
+
 input.value = "30060";
 
 button.addEventListener("click", function (name) {
@@ -39,27 +43,29 @@ button.addEventListener("click", function (name) {
       forcastContainer.style.display = "flex";
 
       var location = data["city"]["name"];
-      var tempCel = Math.round(data.list[0]["main"]["temp"] - 273.15);
+      var currentTemp = Math.round(data.list[0]["main"]["temp"]);
+      // var tempCel = Math.round(data.list[0]["main"]["temp"] - 273.15);
       // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
       var description1 = data.list[2]["weather"][0]["main"];
       var description2 = data.list[2]["weather"][0]["description"];
       var feels_Like = Math.round(data.list[0]["main"]["feels_like"] - 273.15);
       var humid = data.list[0]["main"]["humidity"] + "%";
-      var windspeed = data.list[3]["wind"]["speed"] + " mph";
+      var windspeed = data.list[3]["wind"]["speed"] + "mph";
       var iconCode = data.list[2]["weather"][0].icon;
       var time = data["city"]["timezone"];
       var mytime = Math.floor(new Date().getTime() / 1000.0) + time;
       var mydate = new Date(mytime * 1000);
       var date = mydate.toGMTString();
 
-      console.log(iconCode);
-
+      temp_K = currentTemp;
+      temp_C = currentTemp;
       weatherIcon(iconCode);
+
       var str = date;
       var stringArray = str.split(/\b\s+/);
 
       enterMsg.innerHTML = " ";
-      temp.innerHTML = tempCel + "°C";
+      temp.innerHTML = Math.round(currentTemp - 273.15) + "°C";
       locationName.innerHTML = location;
       descriptions.innerHTML = description1;
       feelsLike.innerHTML = feels_Like + "°C";
@@ -67,10 +73,9 @@ button.addEventListener("click", function (name) {
       wind.innerHTML = windspeed;
       dateTime.innerHTML = stringArray[0] + " " + stringArray[1];
 
-      //3 days forcast
+      //------------- 3 days forcast -------------
 
       weatherDate(stringArray);
-
       var d1 =
         "http://openweathermap.org/img/wn/" +
         data.list[4]["weather"][0].icon +
@@ -99,6 +104,8 @@ button.addEventListener("click", function (name) {
     })
     .catch((err) => alert("Invalid City Name. Please try again"));
 });
+
+//------------- UTC to regular date -------------
 
 function weatherDate(date) {
   var str = date[0];
@@ -134,7 +141,7 @@ function weatherDate(date) {
     dayThreeDate.innerHTML = "Sunday";
   }
 }
-
+//------------- Icon -------------
 function weatherIcon(code) {
   switch (code) {
     case "01d":
@@ -181,14 +188,54 @@ function weatherIcon(code) {
       icon.innerHTML = "";
   }
 }
+//------------- Celsius -------------
 
-// button.onclick = function () {
-//   const mq = window.matchMedia("(min-width: 800px)");
+btnCel.addEventListener("click", function () {
+  celsius(temp_C);
+  btnCel.style.WebkitBackground = "text";
+  btnCel.style.webkitTextFillColor = "transparent";
 
-//   forcastContainer.style.display = "flex";
-//   // if (mq.matches) {
-//   //   container.style.flexDirection = "row";
-//   //   container.style.alignItems = "stretch";
-//   //   container.style.width = "800px";
-//   // }
+  btnFar.style.WebkitBackgroundClip = "none";
+  btnFar.style.webkitTextFillColor = "inherit";
+});
+
+function celsius(c) {
+  var tempC = Math.round(c - 273.15);
+  temp.innerHTML = tempC + "°F";
+  return tempC;
+}
+
+//------------- Fahrenheit -------------
+
+btnFar.addEventListener("click", function () {
+  fahrenheit(temp_K);
+  btnFar.style.background = "var(--gradient)";
+  btnFar.style.WebkitBackgroundClip = "text";
+  btnFar.style.webkitTextFillColor = "transparent";
+
+  btnCel.style.WebkitBackground = "none";
+  btnCel.style.webkitTextFillColor = "inherit";
+});
+
+function fahrenheit(f) {
+  var tempF = Math.round(((f - 273.15) * 9) / 5 + 32);
+  temp.innerHTML = tempF + "°F";
+  return tempF;
+}
+
+// btnFar.onclick = function fahrenheit(t) {
+// btnFar.style.background = "var(--gradient)";
+// btnFar.style.WebkitBackgroundClip = "text";
+// btnFar.style.webkitTextFillColor = "transparent";
+
+// btnCel.style.WebkitBackground = "none";
+// btnCel.style.webkitTextFillColor = "inherit";
 // };
+
+// document.getElementById("myText").value = "Johnny Bravo";
+// const mq = window.matchMedia("(min-width: 800px)");
+// if (mq.matches) {
+//   container.style.flexDirection = "row";
+//   container.style.alignItems = "stretch";
+//   container.style.width = "800px";
+// }
