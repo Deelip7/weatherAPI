@@ -7,7 +7,7 @@ var descriptions = document.querySelector(".card__descriptions");
 var locationName = document.querySelector(".card__location");
 var feelsLike = document.querySelector(".output__feelslike");
 var humidity = document.querySelector(".output__humidity");
-var temp = document.querySelector(".card__temp");
+var temperature = document.querySelector(".card__temp");
 var wind = document.querySelector(".output__wind");
 var icon = document.querySelector(".card__icon");
 var dateTime = document.querySelector(".card__date");
@@ -28,8 +28,7 @@ var container = document.querySelector(".container");
 
 var btnCel = document.querySelector(".cel");
 var btnFar = document.querySelector(".far");
-var temp_K = 0;
-
+var temp = 1;
 input.value = "30060";
 
 button.addEventListener("click", function (name) {
@@ -41,14 +40,11 @@ button.addEventListener("click", function (name) {
     .then((res) => res.json())
     .then((data) => {
       forcastContainer.style.display = "flex";
-
       var location = data["city"]["name"];
       var currentTemp = Math.round(data.list[0]["main"]["temp"]);
-      // var tempCel = Math.round(data.list[0]["main"]["temp"] - 273.15);
-      // var tempFah = Math.round(((data.main["temp"] - 273.15) * 9) / 5 + 32);
       var description1 = data.list[2]["weather"][0]["main"];
       var description2 = data.list[2]["weather"][0]["description"];
-      var feels_Like = Math.round(data.list[0]["main"]["feels_like"] - 273.15);
+      var feels_Like = Math.round(data.list[0]["main"]["feels_like"]);
       var humid = data.list[0]["main"]["humidity"] + "%";
       var windspeed = data.list[3]["wind"]["speed"] + "mph";
       var iconCode = data.list[2]["weather"][0].icon;
@@ -57,18 +53,18 @@ button.addEventListener("click", function (name) {
       var mydate = new Date(mytime * 1000);
       var date = mydate.toGMTString();
 
+      weatherIcon(iconCode);
       temp_K = currentTemp;
       temp_C = currentTemp;
-      weatherIcon(iconCode);
 
       var str = date;
       var stringArray = str.split(/\b\s+/);
 
       enterMsg.innerHTML = " ";
-      temp.innerHTML = Math.round(currentTemp - 273.15) + "°C";
+      temperature.innerHTML = Math.round(currentTemp - 273.15) + "°C";
       locationName.innerHTML = location;
       descriptions.innerHTML = description1;
-      feelsLike.innerHTML = feels_Like + "°C";
+      feelsLike.innerHTML = Math.round(feels_Like - 273.15) + "°C";
       humidity.innerHTML = humid;
       wind.innerHTML = windspeed;
       dateTime.innerHTML = stringArray[0] + " " + stringArray[1];
@@ -194,14 +190,13 @@ btnCel.addEventListener("click", function () {
   celsius(temp_C);
   btnCel.style.WebkitBackground = "text";
   btnCel.style.webkitTextFillColor = "transparent";
-
   btnFar.style.WebkitBackgroundClip = "none";
   btnFar.style.webkitTextFillColor = "inherit";
 });
 
 function celsius(c) {
   var tempC = Math.round(c - 273.15);
-  temp.innerHTML = tempC + "°F";
+  temperature.innerHTML = tempC + "°F";
   return tempC;
 }
 
@@ -212,30 +207,12 @@ btnFar.addEventListener("click", function () {
   btnFar.style.background = "var(--gradient)";
   btnFar.style.WebkitBackgroundClip = "text";
   btnFar.style.webkitTextFillColor = "transparent";
-
   btnCel.style.WebkitBackground = "none";
   btnCel.style.webkitTextFillColor = "inherit";
 });
 
 function fahrenheit(f) {
-  var tempF = Math.round(((f - 273.15) * 9) / 5 + 32);
-  temp.innerHTML = tempF + "°F";
+  var tempF = Math.round((f * 9) / 5 - 459.67);
+  temperature.innerHTML = tempF + "°F";
   return tempF;
 }
-
-// btnFar.onclick = function fahrenheit(t) {
-// btnFar.style.background = "var(--gradient)";
-// btnFar.style.WebkitBackgroundClip = "text";
-// btnFar.style.webkitTextFillColor = "transparent";
-
-// btnCel.style.WebkitBackground = "none";
-// btnCel.style.webkitTextFillColor = "inherit";
-// };
-
-// document.getElementById("myText").value = "Johnny Bravo";
-// const mq = window.matchMedia("(min-width: 800px)");
-// if (mq.matches) {
-//   container.style.flexDirection = "row";
-//   container.style.alignItems = "stretch";
-//   container.style.width = "800px";
-// }
