@@ -239,7 +239,8 @@ body {
   position: absolute;
   cursor: pointer;
   color: #b7b7b7bc;
-
+  outline: none;
+  outline: 0;
   right: 0;
   left: 1;
   font-size: 1.2rem;
