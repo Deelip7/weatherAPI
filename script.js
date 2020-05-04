@@ -24,6 +24,7 @@ var dayThreeDate = document.querySelector(".day3_date");
 var dayThreeIcon = document.querySelector(".day3_icon");
 var dayThreeTemp = document.querySelector(".day3_temp");
 var forcastContainer = document.getElementById("hide2");
+var container = document.querySelector(".container");
 
 input.value = "30060";
 
@@ -96,7 +97,7 @@ button.addEventListener("click", function (name) {
       dayTwoTemp.innerHTML = day2temp;
       dayThreeTemp.innerHTML = day3temp;
     })
-    .catch((err) => alert("Invalid City name. Please try again"));
+    .catch((err) => alert("Invalid City Name. Please try again"));
 });
 
 function weatherDate(date) {
@@ -180,3 +181,14 @@ function weatherIcon(code) {
       icon.innerHTML = "";
   }
 }
+
+// button.onclick = function () {
+//   const mq = window.matchMedia("(min-width: 800px)");
+
+//   forcastContainer.style.display = "flex";
+//   // if (mq.matches) {
+//   //   container.style.flexDirection = "row";
+//   //   container.style.alignItems = "stretch";
+//   //   container.style.width = "800px";
+//   // }
+// };
