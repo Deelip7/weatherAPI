@@ -269,13 +269,13 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+/* 
 .cel:hover,
 .far:hover,
 .cel:active,
 .far:active {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
+} */
 
 /* ------------- @media ------------- */
 
