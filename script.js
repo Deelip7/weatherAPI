@@ -29,12 +29,17 @@ var container = document.querySelector(".container");
 var btnCel = document.querySelector(".cel");
 var btnFar = document.querySelector(".far");
 var temp = 1;
-input.value = "30060";
+
+//------- regex for removing "whitespace",
+input.value = "06457";
+inputStr = input.value;
+inputStr = inputStr.replace(/\s/g, "");
+//-------------------------------------
 
 button.addEventListener("click", function (name) {
   fetch(
     "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?zip=" +
-      input.value +
+      inputStr +
       "&appid=1e12d953ad0dc8ff3a4f488ae456a976"
   )
     .then((res) => res.json())
@@ -131,7 +136,7 @@ function weatherDate(date) {
     dayOneDate.innerHTML = "Thursday";
     dayTwoDate.innerHTML = "Friday";
     dayThreeDate.innerHTML = "Saturday";
-  } else if (stringArray[0] === "Thurs") {
+  } else if (stringArray[0] === "Thur") {
     dayOneDate.innerHTML = "Friday";
     dayTwoDate.innerHTML = "Saturday";
     dayThreeDate.innerHTML = "Sunday";
