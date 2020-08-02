@@ -28,15 +28,11 @@ var container = document.querySelector(".container");
 
 var btnCel = document.querySelector(".cel");
 var btnFar = document.querySelector(".far");
-var temp = 1;
 
-//------- regex for removing "whitespace",
-input.value = "06457";
-inputStr = input.value;
-inputStr = inputStr.replace(/\s/g, "");
 //-------------------------------------
 
-button.addEventListener("click", function (name) {
+button.addEventListener("click", function () {
+  var inputStr = input.value.replace(/\s/g, ""); //------- regex for removing "whitespace",
   fetch(
     "https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?zip=" +
       inputStr +
@@ -44,7 +40,6 @@ button.addEventListener("click", function (name) {
   )
     .then((res) => res.json())
     .then((data) => {
-      forcastContainer.style.display = "flex";
       var location = data["city"]["name"];
       var currentTemp = Math.round(data.list[0]["main"]["temp"]);
       var description1 = data.list[2]["weather"][0]["main"];
@@ -57,8 +52,6 @@ button.addEventListener("click", function (name) {
       var mytime = Math.floor(new Date().getTime() / 1000.0) + time;
       var mydate = new Date(mytime * 1000);
       var date = mydate.toGMTString();
-
-      weatherIcon(iconCode);
 
       var str = date;
       var stringArray = str.split(/\b\s+/);
@@ -79,24 +72,8 @@ button.addEventListener("click", function (name) {
       var day2temp = Math.round(data.list[12]["main"]["temp"] - 273.15);
       var day3temp = Math.round(data.list[20]["main"]["temp"] - 273.15);
 
-      temperature.innerHTML = primeryTemp + "°C";
-      feelsLike.innerHTML = feelsLikeTemp + "°C";
-      dayOneTemp.innerHTML = day1temp + "°C";
-      dayTwoTemp.innerHTML = day2temp + "°C";
-      dayThreeTemp.innerHTML = day3temp + "°C";
-
-      tempConvert(
-        primeryTemp,
-        feelsLikeTemp,
-        day1temp,
-        day2temp,
-        day3temp,
-        windspeed
-      );
-
       //------------- 3 days forcast -------------
 
-      weatherDate(stringArray);
       var d1 =
         "http://openweathermap.org/img/wn/" +
         data.list[4]["weather"][0].icon +
@@ -114,8 +91,21 @@ button.addEventListener("click", function (name) {
         data.list[12]["weather"][0].icon +
         "@2x.png";
       dayThreeIcon.innerHTML = "<img src=" + d3 + ">";
+
+      tempConvert(
+        primeryTemp,
+        feelsLikeTemp,
+        day1temp,
+        day2temp,
+        day3temp,
+        windspeed
+      );
+      weatherIcon(iconCode);
+      weatherDate(stringArray);
+
+      input.value = "";
     })
-    .catch((err) => alert("Invalid City Name. Please try again"));
+    .catch(() => alert("Invalid City Name. Please try again"));
 });
 
 //------------- UTC to regular date -------------
@@ -204,18 +194,21 @@ function weatherIcon(code) {
 
 //------------- temp Convert -------------
 function tempConvert(maintemp, feelsLikeT, temp1, temp2, temp3, windspeed) {
-  btnCel.addEventListener("click", function () {
-    btnCel.style.WebkitBackground = "text";
-    btnCel.style.webkitTextFillColor = "transparent";
-    btnFar.style.WebkitBackgroundClip = "none";
-    btnFar.style.webkitTextFillColor = "inherit";
+  forcastContainer.style.display = "flex";
+  btnCel.style.WebkitBackground = "text";
+  btnCel.style.webkitTextFillColor = "transparent";
+  btnFar.style.WebkitBackgroundClip = "none";
+  btnFar.style.webkitTextFillColor = "inherit";
 
-    temperature.innerHTML = maintemp + "°C";
-    feelsLike.innerHTML = feelsLikeT + "°C";
-    dayOneTemp.innerHTML = temp1 + "°C";
-    dayTwoTemp.innerHTML = temp2 + "°C";
-    dayThreeTemp.innerHTML = temp3 + "°C";
-    wind.innerHTML = windspeed + "mph";
+  temperature.innerHTML = maintemp + "°C";
+  feelsLike.innerHTML = feelsLikeT + "°C";
+  dayOneTemp.innerHTML = temp1 + "°C";
+  dayTwoTemp.innerHTML = temp2 + "°C";
+  dayThreeTemp.innerHTML = temp3 + "°C";
+  wind.innerHTML = windspeed + "mph";
+
+  btnCel.addEventListener("click", () => {
+    tempConvert(maintemp, feelsLikeT, temp1, temp2, temp3, windspeed);
   });
 
   btnFar.addEventListener("click", function () {
@@ -224,6 +217,7 @@ function tempConvert(maintemp, feelsLikeT, temp1, temp2, temp3, windspeed) {
     btnFar.style.webkitTextFillColor = "transparent";
     btnCel.style.WebkitBackground = "none";
     btnCel.style.webkitTextFillColor = "inherit";
+    ``;
 
     temperature.innerHTML = Math.round((maintemp * 9) / 5 + 32) + "°F";
     feelsLike.innerHTML = Math.round((feelsLikeT * 9) / 5 + 32) + "°F";
