@@ -51,7 +51,7 @@ button.addEventListener("click", function (name) {
       var description2 = data.list[2]["weather"][0]["description"];
       var feels_Like = Math.round(data.list[0]["main"]["feels_like"]);
       var humid = data.list[0]["main"]["humidity"] + "%";
-      var windspeed = data.list[3]["wind"]["speed"] + "mph";
+      var windspeed = data.list[3]["wind"]["speed"];
       var iconCode = data.list[2]["weather"][0].icon;
       var time = data["city"]["timezone"];
       var mytime = Math.floor(new Date().getTime() / 1000.0) + time;
@@ -59,20 +59,40 @@ button.addEventListener("click", function (name) {
       var date = mydate.toGMTString();
 
       weatherIcon(iconCode);
-      temp_K = currentTemp;
-      temp_C = currentTemp;
 
       var str = date;
       var stringArray = str.split(/\b\s+/);
 
       enterMsg.innerHTML = " ";
-      temperature.innerHTML = Math.round(currentTemp - 273.15) + "°C";
       locationName.innerHTML = location;
       descriptions.innerHTML = description1;
-      feelsLike.innerHTML = Math.round(feels_Like - 273.15) + "°C";
       humidity.innerHTML = humid;
-      wind.innerHTML = windspeed;
+      wind.innerHTML = windspeed + "mph";
       dateTime.innerHTML = stringArray[0] + " " + stringArray[1];
+
+      //-----------Setting Temps-------------------
+      var primeryTemp = Math.round(currentTemp - 273.15);
+      var feelsLikeTemp = (feelsLike.innerHTML = Math.round(
+        feels_Like - 273.15
+      ));
+      var day1temp = Math.round(data.list[4]["main"]["temp"] - 273.15);
+      var day2temp = Math.round(data.list[12]["main"]["temp"] - 273.15);
+      var day3temp = Math.round(data.list[20]["main"]["temp"] - 273.15);
+
+      temperature.innerHTML = primeryTemp + "°C";
+      feelsLike.innerHTML = feelsLikeTemp + "°C";
+      dayOneTemp.innerHTML = day1temp + "°C";
+      dayTwoTemp.innerHTML = day2temp + "°C";
+      dayThreeTemp.innerHTML = day3temp + "°C";
+
+      tempConvert(
+        primeryTemp,
+        feelsLikeTemp,
+        day1temp,
+        day2temp,
+        day3temp,
+        windspeed
+      );
 
       //------------- 3 days forcast -------------
 
@@ -94,14 +114,6 @@ button.addEventListener("click", function (name) {
         data.list[12]["weather"][0].icon +
         "@2x.png";
       dayThreeIcon.innerHTML = "<img src=" + d3 + ">";
-
-      var day1temp = Math.round(data.list[4]["main"]["temp"] - 273.15) + "°C";
-      var day2temp = Math.round(data.list[12]["main"]["temp"] - 273.15) + "°C";
-      var day3temp = Math.round(data.list[20]["main"]["temp"] - 273.15) + "°C";
-
-      dayOneTemp.innerHTML = day1temp;
-      dayTwoTemp.innerHTML = day2temp;
-      dayThreeTemp.innerHTML = day3temp;
     })
     .catch((err) => alert("Invalid City Name. Please try again"));
 });
@@ -189,35 +201,35 @@ function weatherIcon(code) {
       icon.innerHTML = "";
   }
 }
-//------------- Celsius -------------
 
-btnCel.addEventListener("click", function () {
-  celsius(temp_C);
-  btnCel.style.WebkitBackground = "text";
-  btnCel.style.webkitTextFillColor = "transparent";
-  btnFar.style.WebkitBackgroundClip = "none";
-  btnFar.style.webkitTextFillColor = "inherit";
-});
+//------------- temp Convert -------------
+function tempConvert(maintemp, feelsLikeT, temp1, temp2, temp3, windspeed) {
+  btnCel.addEventListener("click", function () {
+    btnCel.style.WebkitBackground = "text";
+    btnCel.style.webkitTextFillColor = "transparent";
+    btnFar.style.WebkitBackgroundClip = "none";
+    btnFar.style.webkitTextFillColor = "inherit";
 
-function celsius(c) {
-  var tempC = Math.round(c - 273.15);
-  temperature.innerHTML = tempC + "°F";
-  return tempC;
-}
+    temperature.innerHTML = maintemp + "°C";
+    feelsLike.innerHTML = feelsLikeT + "°C";
+    dayOneTemp.innerHTML = temp1 + "°C";
+    dayTwoTemp.innerHTML = temp2 + "°C";
+    dayThreeTemp.innerHTML = temp3 + "°C";
+    wind.innerHTML = windspeed + "mph";
+  });
 
-//------------- Fahrenheit -------------
+  btnFar.addEventListener("click", function () {
+    btnFar.style.background = "var(--gradient)";
+    btnFar.style.WebkitBackgroundClip = "text";
+    btnFar.style.webkitTextFillColor = "transparent";
+    btnCel.style.WebkitBackground = "none";
+    btnCel.style.webkitTextFillColor = "inherit";
 
-btnFar.addEventListener("click", function () {
-  fahrenheit(temp_K);
-  btnFar.style.background = "var(--gradient)";
-  btnFar.style.WebkitBackgroundClip = "text";
-  btnFar.style.webkitTextFillColor = "transparent";
-  btnCel.style.WebkitBackground = "none";
-  btnCel.style.webkitTextFillColor = "inherit";
-});
-
-function fahrenheit(f) {
-  var tempF = Math.round((f * 9) / 5 - 459.67);
-  temperature.innerHTML = tempF + "°F";
-  return tempF;
+    temperature.innerHTML = Math.round((maintemp * 9) / 5 + 32) + "°F";
+    feelsLike.innerHTML = Math.round((feelsLikeT * 9) / 5 + 32) + "°F";
+    dayOneTemp.innerHTML = Math.round((temp1 * 9) / 5 + 32) + "°F";
+    dayTwoTemp.innerHTML = Math.round((temp2 * 9) / 5 + 32) + "°F";
+    dayThreeTemp.innerHTML = Math.round((temp3 * 9) / 5 + 32) + "°F";
+    wind.innerHTML = Math.round(windspeed * 1.609 * 10) / 10 + "kph";
+  });
 }
