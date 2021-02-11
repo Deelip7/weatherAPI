@@ -120,6 +120,30 @@ body {
   height: 100px;
 } */
 /* ------------- forcast ------------- */
+
+.forcast__dayflip {
+  height: 0px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  background-color: #222831;
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: var(--radiusVal);
+  top: 0;
+  position: relative;
+  font-size: 1.3rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.264);
+  -webkit-transition: all 0.7s ease 0s;
+  -moz-transition: all 0.7s ease 0s;
+  -o-transition: all 0.7s ease 0s;
+  transition: all 0.7s ease 0s;
+}
+.day1_humidity {
+  position: relative;
+  right: -35px;
+}
 .forcast {
   max-width: 400px;
   display: none;
@@ -159,6 +183,9 @@ body {
   flex-direction: column;
   text-align: end;
   font-weight: 100;
+}
+.forcast__value div {
+  margin-bottom: 0.8rem;
 }
 
 .forcast__3days {
