@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ⛅ OpenWeatherMap API
 
 A simple Weather App using OpenWeatherMap.org API.
@@ -17,7 +16,3 @@ A simple Weather App using OpenWeatherMap.org API.
 Theelipan Prabakar - https://www.theelipan.com/
 
 Project Link: https://frosty-mestorf-016fd6.netlify.app/
-=======
-# OpenWeatherMap API
-[link to Project: https://frosty-mestorf-016fd6.netlify.app/]
->>>>>>> 15fc7440e1cac667b1e99370f5e6198d99be4ef2
